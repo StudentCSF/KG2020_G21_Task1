@@ -1,6 +1,7 @@
 package ru.vsu.cs.valeev;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Grass {
     int x, y1, y2;
@@ -16,5 +17,16 @@ public class Grass {
     public void draw(Graphics2D g) {
         g.setColor(this.color);
         g.fillRect(0, this.y1, this.x, y2 - y1);
+
+        Random rnd = new Random();
+        for(int i = 0; i < 1000; i++) {
+            drawBladeOfGrass(g, rnd.nextInt(this.x), rnd.nextInt(this.y2 - this.y1) + y1 + 1, Color.BLACK);
+        }
+    }
+
+    private void drawBladeOfGrass(Graphics2D g, int x, int y, Color color) {
+        g.setColor(color);
+        g.drawLine(x, y, x - 3, y + 7);
+        g.drawLine(x, y, x + 3, y + 7);
     }
 }
