@@ -10,12 +10,6 @@ public class DrawPanel extends JPanel {
     public void paint(Graphics g) {
         Graphics2D gr = (Graphics2D) g;
 
-        /*if (true) {
-            gr.setColor(Color.RED);
-            gr.fillArc(100, 100, 300, 900, 0, 180);
-            return;
-        }*/
-
         Dimension sSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = sSize.width;
         int height = sSize.height;
@@ -35,7 +29,7 @@ public class DrawPanel extends JPanel {
 
         Grass grass = new Grass(width, sky.y, height, new Color(0, 205, 0));
         grass.draw(gr);
-
+//255.211.155
         Home home = new Home(300, sky.y + 100, 700, 400, new Color(255, 211, 155), new Color(139, 69, 19), new Color(210, 105, 30), Color.WHITE);
         home.draw(gr);
 

@@ -8,7 +8,7 @@ public class Home {
     Door door;
     WindowHome window;
     Roof roof;
-    Chimnei chim;
+    Chimney chim;
     StreetTable st;
 
     private class Door {
@@ -75,12 +75,12 @@ public class Home {
         }
     }
 
-    private class Chimnei {
+    private class Chimney {
 
         public void draw(Graphics2D g) {
             g.setColor(Home.this.roofColor);
             g.fillRect(Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, 50, 300);
-            // g.fillRect();
+            drawBricks(g,Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, 50, 20, 300 / 20, 50 / 50, Color.BLACK);
         }
     }
 
@@ -124,10 +124,12 @@ public class Home {
         g.setColor(this.wallColor);
         g.fillRect(this.x, this.y, this.width, this.wallHeight);
 
+        drawBricks(g, this.x, this.y, 50, 20, this.wallHeight / 20, this.width / 50, new Color(131, 139, 131));
+
         this.roof = new Roof(this.wallHeight);
         roof.draw(g);
 
-        this.chim = new Chimnei();
+        this.chim = new Chimney();
         this.chim.draw(g);
 
         this.door = new Door(width / 4, wallHeight * 14 / 8);
@@ -138,5 +140,22 @@ public class Home {
 
         this.st = new StreetTable(this.x + this.width / 20, this.y + this.wallHeight / 12, 150, 40, new Color(72, 118, 255), "Java Street, 1");
         this.st.draw(g);
+    }
+
+    private void drawBricks(Graphics2D g, int x, int y, int brickWidth, int brickHeight, int rowCount, int colCount, Color color) {
+        g.setColor(color);
+
+        int y1 = y;
+        int x2 = x + colCount * brickWidth;
+        for (int i = 0; i < rowCount; i++) {
+            y1 += brickHeight;
+            g.drawLine(x, y1, x2, y1);
+        }
+        int x1 = x;
+        int y2 = y + rowCount * brickHeight;
+        for (int i = 0; i < colCount; i++) {
+            x1 += brickWidth;
+            g.drawLine(x1, y, x1, y2);
+        }
     }
 }
