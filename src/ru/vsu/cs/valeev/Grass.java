@@ -19,14 +19,14 @@ public class Grass {
         g.fillRect(0, this.y1, this.x, y2 - y1);
 
         Random rnd = new Random();
-        for(int i = 0; i < 2000; i++) {
-            drawBladeOfGrass(g, rnd.nextInt(this.x), rnd.nextInt(this.y2 - this.y1) + y1 + 1, new Color(34, 139, 34));
+        for(int i = 0; i < 10000; i++) {
+            drawBladeOfGrass(g, rnd.nextInt(this.x), rnd.nextInt(this.y2 - this.y1) + y1 + 1, new Color(127, 205, 0));
         }
     }
 
     private void drawBladeOfGrass(Graphics2D g, int x, int y, Color color) {
         g.setColor(color);
-        g.drawLine(x, y, x - 3, y + 7);
-        g.drawLine(x, y, x + 3, y + 7);
+        g.drawLine(x, y, x - 2, y + 5);
+        g.drawLine(x, y, x + 2, y + 5);
     }
 }
