@@ -19,8 +19,8 @@ public class Grass {
         g.fillRect(0, this.y1, this.x, y2 - y1);
 
         Random rnd = new Random();
-        for(int i = 0; i < 1000; i++) {
-            drawBladeOfGrass(g, rnd.nextInt(this.x), rnd.nextInt(this.y2 - this.y1) + y1 + 1, Color.BLACK);
+        for(int i = 0; i < 2000; i++) {
+            drawBladeOfGrass(g, rnd.nextInt(this.x), rnd.nextInt(this.y2 - this.y1) + y1 + 1, new Color(34, 139, 34));
         }
     }
 

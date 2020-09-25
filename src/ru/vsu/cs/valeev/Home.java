@@ -71,14 +71,24 @@ public class Home {
             int[] a2 = {y, y - this.height, y};
 
             g.fillPolygon(a1, a2, 3);
-
+            g.setColor(Color.BLACK);
+            int step = 50;
+            int x1 = x - w / 10;
+            int x2 = x + w + w / 10;
+            int y0 = y;
+            for (int i = 0; i < height / step; i++) {
+                g.drawLine(x1, y0, x2, y0);
+                y0 -= step;
+                x1 = x - w / 10 - (6 * w) * (y0 - y) / (10 * this.height);
+                x2 = x + w + w / 10 + (6 * w) * (y0 - y) / (10 * this.height);
+            }
         }
     }
 
     private class Chimney {
 
         public void draw(Graphics2D g) {
-            g.setColor(Home.this.roofColor);
+            g.setColor(new Color(139, 0, 0));
             g.fillRect(Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, 50, 300);
             drawBricks(g,Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, 50, 20, 300 / 20, 50 / 50, Color.BLACK);
         }
