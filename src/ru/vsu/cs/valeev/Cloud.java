@@ -2,7 +2,7 @@ package ru.vsu.cs.valeev;
 
 import java.awt.*;
 
-public class Cloud {
+public class Cloud implements Drawable {
     int x, y, r1, r2;
     Color color;
 
@@ -15,6 +15,7 @@ public class Cloud {
         this.color = color;
     }
 
+    @Override
     public void draw(Graphics2D g) {
         g.setColor(this.color);
         g.fillOval(this.x - r1, this.y - r2, 2 * r1, 2 * r2);

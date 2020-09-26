@@ -3,7 +3,7 @@ package ru.vsu.cs.valeev;
 import java.awt.*;
 import java.util.Random;
 
-public class Grass {
+public class Grass implements Drawable {
     int x, y1, y2;
     Color color;
 
@@ -14,6 +14,7 @@ public class Grass {
         this.color = color;
     }
 
+    @Override
     public void draw(Graphics2D g) {
         g.setColor(this.color);
         g.fillRect(0, this.y1, this.x, y2 - y1);

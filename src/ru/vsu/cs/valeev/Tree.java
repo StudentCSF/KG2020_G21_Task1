@@ -2,7 +2,7 @@ package ru.vsu.cs.valeev;
 
 import java.awt.*;
 
-public class Tree {
+public class Tree implements Drawable {
     int x, y, width, height;
     Color leafColor, trunkColor;
 
@@ -15,6 +15,7 @@ public class Tree {
         this.trunkColor = trunkColor;
     }
 
+    @Override
     public void draw(Graphics2D g) {
         g.setColor(this.trunkColor);
         g.fillRect(this.x, this.y, this.width, this.height);

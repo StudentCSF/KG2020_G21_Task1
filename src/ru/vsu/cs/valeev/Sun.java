@@ -2,7 +2,7 @@ package ru.vsu.cs.valeev;
 
 import java.awt.*;
 
-public class Sun {
+public class Sun implements Drawable {
     private int x, y, r, R, rayCount;
     private Color color;
 
@@ -15,6 +15,7 @@ public class Sun {
         this.color = color;
     }
 
+    @Override
     public void draw(Graphics2D g) {
         g.setColor(color);
         g.fillOval(x - r, y - r, 2 * r, 2 * r);
