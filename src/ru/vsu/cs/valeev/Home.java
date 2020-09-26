@@ -2,7 +2,7 @@ package ru.vsu.cs.valeev;
 
 import java.awt.*;
 
-public class Home {
+public class Home implements Drawable {
     int x, y, width, wallHeight;
     Color wallColor, doorColor, roofColor, windowColor;
     Door door;
@@ -11,7 +11,7 @@ public class Home {
     Chimney chim;
     StreetTable st;
 
-    private class Door {
+    private class Door implements Drawable {
         int width, height;
 
         public Door(int width, int height) {
@@ -19,6 +19,7 @@ public class Home {
             this.height = height;
         }
 
+        @Override
         public void draw(Graphics2D g) {
             g.setColor(Home.this.doorColor);
             int x = Home.this.x;
@@ -31,7 +32,7 @@ public class Home {
         }
     }
 
-    private class WindowHome {
+    private class WindowHome implements Drawable {
         int x, y, quarterSize, step;
 
         public WindowHome(int x, int y, int quarterSize, int step) {
@@ -41,6 +42,7 @@ public class Home {
             this.step = step;
         }
 
+        @Override
         public void draw(Graphics2D g) {
             g.setColor(Home.this.windowColor);
             int x = this.x - this.step * 3 / 2 - this.quarterSize;
@@ -54,13 +56,14 @@ public class Home {
         }
     }
 
-    private class Roof {
+    private class Roof implements Drawable {
         int height;
 
         public Roof(int height) {
             this.height = height;
         }
 
+        @Override
         public void draw(Graphics2D g) {
             g.setColor(Home.this.roofColor);
 
@@ -85,8 +88,9 @@ public class Home {
         }
     }
 
-    private class Chimney {
+    private class Chimney implements Drawable {
 
+        @Override
         public void draw(Graphics2D g) {
             g.setColor(new Color(139, 0, 0));
             g.fillRect(Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, 50, 300);
@@ -94,7 +98,7 @@ public class Home {
         }
     }
 
-    private class StreetTable {
+    private class StreetTable implements Drawable {
         int x, y, width, height;
         Color color;
         String name;
@@ -108,6 +112,7 @@ public class Home {
             this.name = name;
         }
 
+        @Override
         public void draw(Graphics2D g) {
             g.setColor(this.color);
             g.fillRect(this.x, this.y, this.width, this.height);
@@ -130,6 +135,7 @@ public class Home {
         this.windowColor = windowColor;
     }
 
+    @Override
     public void draw(Graphics2D g) {
         g.setColor(this.wallColor);
         g.fillRect(this.x, this.y, this.width, this.wallHeight);
