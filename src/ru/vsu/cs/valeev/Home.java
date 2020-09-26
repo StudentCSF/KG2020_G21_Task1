@@ -8,15 +8,15 @@ public class Home implements Drawable {
     private Door door;
     private WindowHome window;
     private Roof roof;
-    private Chimney chim;
     private StreetTable st;
 
     private class Door implements Drawable {
-        int width, height;
+        int width, height, yBase;
 
-        public Door(int width, int height) {
+        public Door(int width, int height, int yBase) {
             this.width = width;
             this.height = height;
+            this.yBase = yBase;
         }
 
         @Override
@@ -26,9 +26,9 @@ public class Home implements Drawable {
             int y = Home.this.y;
             int w = Home.this.width;
             int h = Home.this.wallHeight;
-            g.fillArc(x + w * 2 / 3, y + h / 8, this.width, this.height, 0, 180);
+            g.fillArc(x + w * 2 / 3, y + h / 8, this.width, h - h / 8 , 0, 180);
             g.setColor(Color.BLACK);
-            g.fillRect(x + w * 3 / 4 - this.width / 5, y + 5 * h / 8, 10, 3);
+            g.fillRect(x + w * 3 / 4 - this.width / 5, y + 5 * h / 8, this.width / 10, 3);
         }
     }
 
@@ -58,6 +58,17 @@ public class Home implements Drawable {
 
     private class Roof implements Drawable {
         int height;
+        Chimney ch;
+
+        private class Chimney implements Drawable {
+
+            @Override
+            public void draw(Graphics2D g) {
+                g.setColor(new Color(139, 0, 0));
+                g.fillRect(Home.this.x + Home.this.width / 7, Home.this.y - height / 6 * 5, Home.this.width / 10, height / 3 * 2);
+                drawBricks(g,Home.this.x + Home.this.width / 7, Home.this.y - height / 6 * 5, Home.this.width / 10, Home.this.width / 64 * 3, Home.this.wallHeight / 3 * 2 / (Home.this.width / 64 * 3), 1, Color.BLACK);
+            }
+        }
 
         public Roof(int height) {
             this.height = height;
@@ -85,16 +96,8 @@ public class Home implements Drawable {
                 x1 = x - w / 10 - (6 * w) * (y0 - y) / (10 * this.height);
                 x2 = x + w + w / 10 + (6 * w) * (y0 - y) / (10 * this.height);
             }
-        }
-    }
-
-    private class Chimney implements Drawable {
-
-        @Override
-        public void draw(Graphics2D g) {
-            g.setColor(new Color(139, 0, 0));
-            g.fillRect(Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, Home.this.width / 10, Home.this.wallHeight / 3 * 2);
-            //drawBricks(g,Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, 50, 20, 300 / 20, 50 / 50, Color.BLACK);
+            this.ch = new Chimney();
+            this.ch.draw(g);
         }
     }
 
@@ -156,10 +159,7 @@ public class Home implements Drawable {
         this.roof = new Roof(this.wallHeight);
         roof.draw(g);
 
-        this.chim = new Chimney();
-        this.chim.draw(g);
-
-        this.door = new Door(width / 4, wallHeight * 14 / 8);
+        this.door = new Door(width / 4, wallHeight * 14 / 8, yb);
         door.draw(g);
 
         int qSize = Math.min(this.width, this.wallHeight) / 5;
