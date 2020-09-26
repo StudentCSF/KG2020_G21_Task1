@@ -3,13 +3,17 @@ package ru.vsu.cs.valeev;
 import java.awt.*;
 
 public class Sky implements Drawable {
-    int x, y;
-    Color color;
+    private int x, y;
+    private Color color;
 
     public Sky(int x, int y, Color color) {
         this.x = x;
         this.y = y;
         this.color = color;
+    }
+
+    public int getY() {
+        return y;
     }
 
     @Override

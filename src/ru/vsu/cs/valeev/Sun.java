@@ -15,6 +15,10 @@ public class Sun implements Drawable {
         this.color = color;
     }
 
+    public int getX() {
+        return x;
+    }
+
     @Override
     public void draw(Graphics2D g) {
         g.setColor(color);

@@ -3,13 +3,13 @@ package ru.vsu.cs.valeev;
 import java.awt.*;
 
 public class Home implements Drawable {
-    int x, y, width, wallHeight;
-    Color wallColor, doorColor, roofColor, windowColor;
-    Door door;
-    WindowHome window;
-    Roof roof;
-    Chimney chim;
-    StreetTable st;
+    private int x, y, width, wallHeight;
+    private Color wallColor, doorColor, roofColor, windowColor;
+    private Door door;
+    private WindowHome window;
+    private Roof roof;
+    private Chimney chim;
+    private StreetTable st;
 
     private class Door implements Drawable {
         int width, height;
@@ -93,8 +93,8 @@ public class Home implements Drawable {
         @Override
         public void draw(Graphics2D g) {
             g.setColor(new Color(139, 0, 0));
-            g.fillRect(Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, 50, 300);
-            drawBricks(g,Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, 50, 20, 300 / 20, 50 / 50, Color.BLACK);
+            g.fillRect(Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, Home.this.width / 10, Home.this.wallHeight / 3 * 2);
+            //drawBricks(g,Home.this.x + Home.this.width / 7, Home.this.y - Home.this.wallHeight / 10 - 300, 50, 20, 300 / 20, 50 / 50, Color.BLACK);
         }
     }
 
@@ -117,7 +117,7 @@ public class Home implements Drawable {
             g.setColor(this.color);
             g.fillRect(this.x, this.y, this.width, this.height);
             g.setColor(Color.WHITE);
-            g.setFont(new Font("name", 5, 20));
+            g.setFont(new Font("name", 5, this.width / 7));
             char[] c = this.name.toCharArray();
             g.drawChars(c, 0, c.length, this.x + 5, this.y + this.height - 10);
         }
@@ -135,12 +135,23 @@ public class Home implements Drawable {
         this.windowColor = windowColor;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
     @Override
     public void draw(Graphics2D g) {
         g.setColor(this.wallColor);
         g.fillRect(this.x, this.y, this.width, this.wallHeight);
 
-        drawBricks(g, this.x, this.y, 50, 20, this.wallHeight / 20, this.width / 50, new Color(131, 139, 131));
+        int bWidth = this.width / 8;
+        int yb =  drawBricks(g, this.x, this.y, bWidth, bWidth / 8 * 3, this.wallHeight / bWidth * 8 / 3, this.width / bWidth, new Color(131, 139, 131));
+        g.setColor(new Color(131, 139, 131));
+        g.fillRect(this.x, yb, this.width, this.wallHeight - yb + y);
 
         this.roof = new Roof(this.wallHeight);
         roof.draw(g);
@@ -151,14 +162,15 @@ public class Home implements Drawable {
         this.door = new Door(width / 4, wallHeight * 14 / 8);
         door.draw(g);
 
-        this.window = new WindowHome(this.x + this.width / 5, this.y + this.wallHeight / 2, 80, 8);
+        int qSize = Math.min(this.width, this.wallHeight) / 5;
+        this.window = new WindowHome(this.x + this.width / 5, this.y + this.wallHeight / 2, qSize, qSize / 10);
         this.window.draw(g);
 
-        this.st = new StreetTable(this.x + this.width / 20, this.y + this.wallHeight / 12, 150, 40, new Color(72, 118, 255), "Java Street, 1");
+        this.st = new StreetTable(this.x + this.width / 20, this.y + this.wallHeight / 12, this.width * 3 / 16, this.wallHeight / 10, new Color(72, 118, 255), "Java Street, 1");
         this.st.draw(g);
     }
 
-    private void drawBricks(Graphics2D g, int x, int y, int brickWidth, int brickHeight, int rowCount, int colCount, Color color) {
+    private int drawBricks(Graphics2D g, int x, int y, int brickWidth, int brickHeight, int rowCount, int colCount, Color color) {
         g.setColor(color);
 
         int y1 = y;
@@ -168,10 +180,16 @@ public class Home implements Drawable {
             g.drawLine(x, y1, x2, y1);
         }
         int x1 = x;
-        int y2 = y + rowCount * brickHeight;
-        for (int i = 0; i < colCount; i++) {
-            x1 += brickWidth;
-            g.drawLine(x1, y, x1, y2);
+        x2 = x + brickWidth / 2;
+        int actX;
+        y1 = y;
+        int result = 0;
+        for (int i = 0; i < rowCount; i++) {
+            actX = i % 2 == 0 ? x1 : x2;
+            for (int j = 0; j < colCount; j++, actX += brickWidth) {
+                g.drawLine(actX, y1 + i * brickHeight, actX, result = y1 + brickHeight * (i + 1));
+            }
         }
+        return result;
     }
 }
