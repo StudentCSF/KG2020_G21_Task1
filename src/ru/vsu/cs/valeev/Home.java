@@ -11,24 +11,22 @@ public class Home implements Drawable {
     private StreetTable st;
 
     private class Door implements Drawable {
-        int width, height, yBase;
+        int x ,y,
+                width, height;
 
-        public Door(int width, int height, int yBase) {
+        public Door(int x, int y, int width, int height) {
+            this.x = x;
+            this.y = y;
             this.width = width;
             this.height = height;
-            this.yBase = yBase;
         }
 
         @Override
         public void draw(Graphics2D g) {
             g.setColor(Home.this.doorColor);
-            int x = Home.this.x;
-            int y = Home.this.y;
-            int w = Home.this.width;
-            int h = Home.this.wallHeight;
-            g.fillArc(x + w * 2 / 3, y + h / 8, this.width, h - h / 8 , 0, 180);
+            g.fillArc(this.x, this.y, this.width, this.height, 0, 180);
             g.setColor(Color.BLACK);
-            g.fillRect(x + w * 3 / 4 - this.width / 5, y + 5 * h / 8, this.width / 10, 3);
+            g.fillRect(this.x + this.width / 10, this.y + this.height / 7 * 2, this.width / 10, 3);
         }
     }
 
@@ -152,14 +150,14 @@ public class Home implements Drawable {
         g.fillRect(this.x, this.y, this.width, this.wallHeight);
 
         int bWidth = this.width / 8;
-        int yb =  drawBricks(g, this.x, this.y, bWidth, bWidth / 8 * 3, this.wallHeight / bWidth * 8 / 3, this.width / bWidth, new Color(131, 139, 131));
+        int foundY =  drawBricks(g, this.x, this.y, bWidth, bWidth / 8 * 3, this.wallHeight / bWidth * 8 / 3, this.width / bWidth, new Color(131, 139, 131));
         g.setColor(new Color(131, 139, 131));
-        g.fillRect(this.x, yb, this.width, this.wallHeight - yb + y);
+        g.fillRect(this.x, foundY, this.width, this.wallHeight - foundY + y);
 
         this.roof = new Roof(this.wallHeight);
         roof.draw(g);
 
-        this.door = new Door(width / 4, wallHeight * 14 / 8, yb);
+        this.door = new Door((this.x + this.width) * 3 / 4, this.y + this.wallHeight / 8, this.width / 4, 2 * foundY - 2 * (this.y + this.wallHeight / 8));
         door.draw(g);
 
         int qSize = Math.min(this.width, this.wallHeight) / 5;
@@ -183,13 +181,13 @@ public class Home implements Drawable {
         x2 = x + brickWidth / 2;
         int actX;
         y1 = y;
-        int result = 0;
+        int foundY = 0;
         for (int i = 0; i < rowCount; i++) {
             actX = i % 2 == 0 ? x1 : x2;
             for (int j = 0; j < colCount; j++, actX += brickWidth) {
-                g.drawLine(actX, y1 + i * brickHeight, actX, result = y1 + brickHeight * (i + 1));
+                g.drawLine(actX, y1 + i * brickHeight, actX, foundY = y1 + brickHeight * (i + 1));
             }
         }
-        return result;
+        return foundY;
     }
 }
