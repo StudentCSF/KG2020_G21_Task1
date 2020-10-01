@@ -3,8 +3,8 @@ package ru.vsu.cs.valeev;
 import java.awt.*;
 
 public class Tree implements Drawable {
-    int x, y, width, height;
-    Color leafColor, trunkColor;
+    private int x, y, width, height;
+    private Color leafColor, trunkColor;
 
     public Tree(int x, int y, int width, int height, Color leafColor, Color trunkColor) {
         this.x = x;
@@ -21,5 +21,9 @@ public class Tree implements Drawable {
         g.fillRect(this.x, this.y, this.width, this.height);
         g.setColor(this.leafColor);
         g.fillArc(this.x - this.width * 3 / 2, this.y - this.height / 2, this.width * 4, this.height, 0,180);
+    }
+
+    public int getX() {
+        return x;
     }
 }

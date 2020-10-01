@@ -4,8 +4,8 @@ import java.awt.*;
 import java.util.Random;
 
 public class Grass implements Drawable {
-    int x, y1, y2;
-    Color color;
+    private int x, y1, y2;
+    private Color color;
 
     public Grass(int x, int y1, int y2, Color color) {
         this.x = x;

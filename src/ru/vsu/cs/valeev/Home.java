@@ -3,7 +3,7 @@ package ru.vsu.cs.valeev;
 import java.awt.*;
 
 public class Home implements Drawable {
-    private int x, y, width, wallHeight;
+    private int x, y, width, wallHeight, foundY;
     private Color wallColor, doorColor, roofColor, windowColor;
     private Door door;
     private WindowHome window;
@@ -27,6 +27,16 @@ public class Home implements Drawable {
             g.fillArc(this.x, this.y, this.width, this.height, 0, 180);
             g.setColor(Color.BLACK);
             g.fillRect(this.x + this.width / 10, this.y + this.height / 7 * 2, this.width / 10, 3);
+            drawDoorstep(g, x, foundY, width, Home.this.getY() + Home.this.getWallHeight() - Home.this.foundY, height / 200, new Color(255, 99, 71));
+        }
+
+        private void drawDoorstep(Graphics2D g, int x, int y, int width, int height, int count, Color color) {
+            g.setColor(color);
+            g.fillRect(x, y, width, height);
+            g.setColor(Color.BLACK);
+            for (int i = 1; i <= count; i++) {
+                g.fillRect(x, y + i * height / count - height / (5 + count - i), width, height / (5 + count - i));
+            }
         }
     }
 
@@ -144,13 +154,21 @@ public class Home implements Drawable {
         return width;
     }
 
+    public int getY() {
+        return y;
+    }
+
+    public int getWallHeight() {
+        return wallHeight;
+    }
+
     @Override
     public void draw(Graphics2D g) {
         g.setColor(this.wallColor);
         g.fillRect(this.x, this.y, this.width, this.wallHeight);
 
         int bWidth = this.width / 8;
-        int foundY =  drawBricks(g, this.x, this.y, bWidth, bWidth / 8 * 3, this.wallHeight / bWidth * 8 / 3, this.width / bWidth, new Color(131, 139, 131));
+        this.foundY =  drawBricks(g, this.x, this.y, bWidth, bWidth / 8 * 3, this.wallHeight / bWidth * 8 / 3, this.width / bWidth, new Color(131, 139, 131));
         g.setColor(new Color(131, 139, 131));
         g.fillRect(this.x, foundY, this.width, this.wallHeight - foundY + y);
 

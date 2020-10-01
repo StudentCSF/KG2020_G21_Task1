@@ -3,8 +3,8 @@ package ru.vsu.cs.valeev;
 import java.awt.*;
 
 public class Cloud implements Drawable {
-    int x, y, r1, r2;
-    Color color;
+    private int x, y, r1, r2;
+    private Color color;
 
 
     public Cloud(int x, int y, int r1, int r2, Color color) {
