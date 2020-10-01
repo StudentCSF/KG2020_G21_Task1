@@ -34,7 +34,7 @@ public class DrawPanel extends JPanel {
         Home home = new Home(getWidth() / 6, sky.getY() + getHeight() / 10, 2 * getWidth() / 5, 2 * getHeight() / 5, new Color(255, 211, 155), new Color(139, 69, 19), new Color(210, 105, 30), Color.WHITE);
         home.draw(gr);
 
-        Tree tree = new Tree(home.getX() + home.getWidth() + 500, sky.getY() - 100, 80, 500, new Color(50, 205, 50), new Color(205, 133, 63));
+        Tree tree = new Tree(getWidth() / 9 * 8, sky.getY() * 9 / 10, getWidth() / 30, getHeight() / 2, new Color(50, 205, 50), new Color(205, 133, 63));
         tree.draw(gr);
     }
 }
