@@ -33,7 +33,7 @@ public class Home implements Drawable {
         private void drawDoorstep(Graphics2D g, int x, int y, int width, int height, int count, Color color) {
             g.setColor(color);
             g.fillRect(x, y, width, height);
-            g.setColor(Color.BLACK);
+            g.setColor(new Color(139, 0, 0));
             for (int i = 1; i <= count; i++) {
                 g.fillRect(x, y + i * height / count - height / (5 + count - i), width, height / (5 + count - i));
             }
